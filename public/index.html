@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./css/index.css" />
+
+    <title>Achados e Perdidos</title>
+  </head>
+  <body class="bg-body-tertiary">
+    <header class="border-bottom mb-4">
+      <nav class="container navbar navbar-light bg-light navbar-expand-lg">
+        <div class="container-fluid">
+          <a class="navbar-brand fw-bold fs-3" href="#">ACHADOS E PERDIDOS</a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div
+            class="collapse navbar-collapse justify-content-end"
+            id="navbarNav"
+          >
+            <ul class="navbar-nav align-items-center gap-3">
+              <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+              </li>
+              <li class="nav-item">
+                <a href="register.html" class="btn btn-outline-secondary"
+                  >Cadastre-se</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main class="w-100">
+      <div class="container py-4">
+        <h2 class="fs-3 mb-4">Itens Perdidos</h2>
+        <div class="row row-cols-2 row-cols-md-4 g-4">
+          <!-- os cards vao aparecer aqui -->
+        </div>
+      </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal fade" id="detalhesModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Detalhes do Item</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="detalhesDescricao">
+              <!-- os detalhes ficam aqui -->
+            </div>
+            <hr />
+            <div id="detalhesImagens" class="d-flex flex-wrap gap-2">
+              <!-- imagens extras aqui -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./js/index.js"></script>
+  </body>
+</html>
