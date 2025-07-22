@@ -1,8 +1,9 @@
 const requiSignin = (req, res, next) => {
   if (req.session.userId) {
-    console.log('oiiii')
     return next()
   }
+
+  console.log('Usuário não autorizado!')
 }
 
 module.exports = {

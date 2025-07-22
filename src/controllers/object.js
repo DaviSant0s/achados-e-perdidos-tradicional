@@ -3,9 +3,9 @@ const Picture = require('../model/object/picture');
 const User = require('../model/user');
 
 const createObject = async (req, res) => {
-  const { name, description, category, location_of_loss, date_of_loss } =
-    req.body;
-  const createBy = req.user.id;
+  const { name, description, category, location_of_loss, date_of_loss } = req.body;
+    
+  const createBy = req.session.userId;
 
   const objectPictures = req.files.map((file) => ({ img: file.filename }));
 
@@ -54,10 +54,15 @@ const createObject = async (req, res) => {
 
     if (!object_res) throw new Error();
 
-    return res.status(201).json({
-      object: object_res,
-      objectPictures: pictures,
-    });
+    return res.redirect('/dashboard');
+
+    // return res.status(201).json({
+    //   object: object_res,
+    //   objectPictures: pictures,
+    // });
+
+    res
+
   } catch (error) {
     return res.status(400).json({
       error: '@objects/create',
@@ -163,7 +168,7 @@ const updateObject = async (req, res) => {
 
 const deleteObject = async (req, res) => {
   const { id } = req.params;
-  const createBy = req.user.id;
+  const createBy = req.session.userId;
 
   try {
     const object = await Object.findOne({ where: { id, createBy } });
@@ -189,7 +194,7 @@ const deleteObject = async (req, res) => {
 
 const getObjectById = async (req, res) => {
   const { id } = req.params;
-  const createBy = req.user.id;
+  const createBy = req.session.userId;
 
   try {
     const object = await Object.findOne({
