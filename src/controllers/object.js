@@ -92,6 +92,7 @@ const getObjects = async (req, res) => {
       ],
     });
 
+    // return res.status(200).json({ objects });
     return res.render('index', { objetos: objects });
 
   } catch (error) {
@@ -216,7 +217,12 @@ const getObjectById = async (req, res) => {
 };
 
 const getUserObjects = async (req, res) => {
-  const createBy = req.user.id;
+
+  if (!req.session.userId) {
+    return res.redirect('/login');
+  }
+
+  const createBy = req.session.userId;
 
   try {
     const objects = await Object.findAll({
@@ -237,7 +243,9 @@ const getUserObjects = async (req, res) => {
       ],
     });
 
-    return res.status(200).json({ objects });
+    // return res.status(200).json({ objects });
+    return res.render('dashboard', { objetos: objects });
+
   } catch (error) {
     return res.status(400).json({
       error: '@objects/getUserObjects',

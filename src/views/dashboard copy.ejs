@@ -79,6 +79,38 @@
             </thead>
             <tbody id="tabelaObjetos">
               <!-- As linhas vão ser inseridas aqui pelo JS -->
+              <% objetos.forEach(obj => { %>
+                <tr>
+                  <td>
+                    <img
+                      src="/public/<%= obj.Pictures[0].img %>"
+                      alt="<%= obj.name %>"
+                      style="height: 60px; object-fit: cover"
+                      class="rounded shadow-sm"
+                    />
+                  </td>
+                  <td><%= obj.name %></td>
+                  <td><%= obj.description %></td>
+                  <td><%= obj.category %></td>
+                  <td><%= obj.location_of_loss %></td>
+                  <td><%= formatarData(obj.date_of_loss) %></td>
+                  <td>
+                    <button
+                      class="btn btn-sm btn-warning me-1"
+                      data-id="<%= obj.id %>"
+                      onclick="editarObjeto('${obj.id}')"
+                    >
+                      Editar
+                    </button>
+                    <button
+                      class="btn btn-sm btn-danger"
+                      onclick="excluirObjeto('${obj.id}')"
+                    >
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              `; <% }); %>
             </tbody>
           </table>
         </div>
@@ -180,6 +212,6 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./js/dashboard.js"></script>
+    <!-- <script src="./js/dashboard.js"></script> -->
   </body>
 </html>

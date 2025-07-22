@@ -1,6 +1,9 @@
 const User = require('../model/user');
 
+const jwt = require('jsonwebtoken');
+
 const { compareHash } = require('../utils/hashProvider');
+const { JWT_SECRET } = require('../configs/env');
 
 const signin = async (req, res) => {
   const { password, email } = req.body;
@@ -15,16 +18,23 @@ const signin = async (req, res) => {
 
     if (!isValidPassword) throw new Error();
 
-    // Ao invés de criar token, você cria a sessão:
-    req.session.userId = user.id;
+    const id = user.id;
 
+    const token = jwt.sign({ id }, JWT_SECRET, { expiresIn: 604800 }); // expira em uma semana
 
-    res.redirect('/dashboard')
-    
+    res.cookie('token', token, { expiresIn: '3600ms' }); // criando cookie para guardar informações do token
+
+    const fullName = `${user.firstName} ${user.lastName}`;
+
+    return res.status(200).json({ token, user: { ...user, fullName } });
+
+    res.red
+
   } catch (error) {
-    
-    res.render('login', { error: 'Usuário ou senha inválidos' });
-
+    return res.status(400).json({
+      error: '@authenticate/signin',
+      message: error.message || 'Authentication failed',
+    });
   }
 };
 
@@ -48,9 +58,7 @@ const signup = async (req, res) => {
 
     if (!user) throw new Error();
 
-    res.status(201).redirect('/login')
-
-    // return res.status(201).json({ message: 'Admin created Successfully' });
+    return res.status(201).json({ message: 'Admin created Successfully' });
 
   } catch (error) {
     return res.status(400).json({
