@@ -181,9 +181,12 @@ const deleteObject = async (req, res) => {
     // Deleta o objeto em si
     await object.destroy();
 
-    return res.status(200).json({
-      message: 'Objeto e imagens deletados com sucesso',
-    });
+    // return res.status(200).json({
+    //   message: 'Objeto e imagens deletados com sucesso',
+    // });
+
+    return res.redirect('/dashboard');
+
   } catch (error) {
     return res.status(400).json({
       error: '@objects/delete',

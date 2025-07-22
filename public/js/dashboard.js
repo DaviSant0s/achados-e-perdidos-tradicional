@@ -1,7 +1,3 @@
-// function logout() {
-//   localStorage.removeItem('token');
-//   window.location.href = 'login.html';
-// }
 
 function criarObjeto() {
   // Abre o modal
@@ -77,30 +73,6 @@ async function editarObjeto(id){
 
   }
   
-}
-
-async function excluirObjeto(id){
-  
-  if (!confirm("Tem certeza que deseja excluir este item?")) return;
-
-  try {
-    const response = await fetch(`http://localhost:3000/api/object/deleteObject/${id}`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    });
-
-    if (!response.ok) throw new Error("Erro ao excluir o objeto.");
-
-    alert("Objeto excluído com sucesso!");
-    carregarObjetos();
-
-  } catch (error) {
-    console.error(error);
-    alert(error.message);
-  }
-
 }
 
 function formatarData(dataISO) {

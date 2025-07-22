@@ -101,12 +101,18 @@
                   >
                     Editar
                   </button>
-                  <button
-                    class="btn btn-sm btn-danger"
-                    onclick="excluirObjeto('${obj.id}')"
+
+                  <form
+                    action="/object/deleteObject/<%= obj.id %>" 
+                    method="POST"
+                    style="display: inline"
+                    onsubmit="return confirm('Tem certeza que deseja excluir este objeto?');"
                   >
-                    Excluir
-                  </button>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                      Excluir
+                    </button>
+                  </form>
+                  
                 </td>
               </tr>
               <% }); %>
