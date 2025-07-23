@@ -107,9 +107,9 @@ const getObjects = async (req, res) => {
 
 const updateObject = async (req, res) => {
   const { id } = req.params;
-  const { name, description, category, location_of_loss, date_of_loss } =
-    req.body;
-  const createBy = req.user.id;
+  const { name, description, category, location_of_loss, date_of_loss } = req.body;
+
+  const createBy = req.session.userId;
 
   try {
     // Verifica se o objeto existe e pertence ao usuário
@@ -157,7 +157,9 @@ const updateObject = async (req, res) => {
       include: [{ model: Picture, attributes: ['id', 'img'] }],
     });
 
-    return res.status(200).json({ object: updatedObject });
+    //return res.status(200).json({ object: updatedObject });
+    return res.redirect('/dashboard');
+
   } catch (error) {
     return res.status(400).json({
       error: '@objects/update',

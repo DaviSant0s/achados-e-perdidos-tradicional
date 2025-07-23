@@ -96,14 +96,19 @@
                 <td>
                   <button
                     class="btn btn-sm btn-warning me-1"
+                    onclick="editarObjeto(this)"
                     data-id="<%= obj.id %>"
-                    onclick="editarObjeto('${obj.id}')"
+                    data-name="<%= obj.name %>"
+                    data-description="<%= obj.description %>"
+                    data-category="<%= obj.category %>"
+                    data-location="<%= obj.location_of_loss %>"
+                    data-date="<%= obj.date_of_loss %>"
                   >
                     Editar
                   </button>
 
                   <form
-                    action="/object/deleteObject/<%= obj.id %>" 
+                    action="/object/deleteObject/<%= obj.id %>"
                     method="POST"
                     style="display: inline"
                     onsubmit="return confirm('Tem certeza que deseja excluir este objeto?');"
@@ -112,7 +117,6 @@
                       Excluir
                     </button>
                   </form>
-                  
                 </td>
               </tr>
               <% }); %>
@@ -240,97 +244,125 @@
       </div>
     </div>
 
-    <!-- Modal -->
-    <div class="modal fade" id="editarModal" tabindex="-1" aria-hidden="true">
+    <!-- Modal de Edição de objeto -->
+    <div
+      class="modal fade"
+      id="editarModal"
+      tabindex="-1"
+      aria-labelledby="editarModalLabel"
+      aria-hidden="true"
+    >
       <div class="modal-dialog">
-        <form action="" class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Editar Objeto</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <input type="hidden" id="editarObjetoId" />
-
-            <div class="mb-3">
-              <label for="editarNome" class="form-label">Nome</label>
-              <input
-                type="text"
-                class="form-control"
-                id="editarNome"
-                required
-              />
+        <div class="modal-content">
+          <form
+            action="#"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="modal-header">
+              <h5 class="modal-title" id="editarModalLabel">Novo Objeto</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Fechar"
+              ></button>
             </div>
 
-            <div class="mb-3">
-              <label for="editarDescricao" class="form-label">Descrição</label>
-              <textarea
-                class="form-control"
-                id="editarDescricao"
-                rows="3"
-                required
-              ></textarea>
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="editarNome" class="form-label">Nome</label>
+                <input
+                  type="text"
+                  name="name"
+                  class="form-control"
+                  id="editarNome"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="editarDescricao" class="form-label"
+                  >Descrição</label
+                >
+                <textarea
+                  name="description"
+                  class="form-control"
+                  id="editarDescricao"
+                  rows="3"
+                  required
+                ></textarea>
+              </div>
+
+              <div class="mb-3">
+                <label for="editarCategoria" class="form-label"
+                  >Categoria</label
+                >
+                <select
+                  name="category"
+                  class="form-select"
+                  id="editarCategoria"
+                  required
+                >
+                  <option selected disabled value="">
+                    Escolha uma categoria
+                  </option>
+                  <option value="Eletrônico">Eletrônico</option>
+                  <option value="Documento">Roupa</option>
+                  <option value="Acessório">Acessório</option>
+                  <option value="Roupas">Documentos</option>
+                  <option value="Outro">Outro</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label for="editarLocal" class="form-label"
+                  >Local da perda</label
+                >
+                <input
+                  type="text"
+                  name="location_of_loss"
+                  class="form-control"
+                  id="editarLocal"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="editarData" class="form-label">Data da perda</label>
+                <input
+                  type="date"
+                  name="date_of_loss"
+                  class="form-control"
+                  id="editarData"
+                  required
+                />
+              </div>
+
+              <div class="mb-3">
+                <label for="editarImagens" class="form-label">Imagens</label>
+                <input
+                  type="file"
+                  name="objectPicture"
+                  class="form-control"
+                  id="editarImagens"
+                  multiple
+                />
+              </div>
             </div>
 
-            <div class="mb-3">
-              <label for="editarCategoria" class="form-label">Categoria</label>
-              <input
-                type="text"
-                class="form-control"
-                id="editarCategoria"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="editarLocal" class="form-label">Local da Perda</label>
-              <input
-                type="text"
-                class="form-control"
-                id="editarLocal"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="editarData" class="form-label">Data da Perda</label>
-              <input
-                type="date"
-                class="form-control"
-                id="editarData"
-                required
-              />
-            </div>
-
-            <div class="mb-3">
-              <label for="editarNovasImagens" class="form-label"
-                >Inserir Imagens</label
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
               >
-              <input
-                type="file"
-                class="form-control"
-                id="editarNovasImagens"
-                multiple
-              />
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-primary">Editar</button>
             </div>
-          </div>
-
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">
-              Salvar Alterações
-            </button>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
     </div>
 
