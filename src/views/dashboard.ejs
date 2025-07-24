@@ -39,13 +39,15 @@
                 <a class="nav-link" href="/">Achados e Perdidos</a>
               </li>
               <li class="nav-item">
-                <button
-                  onclick="logout()"
-                  type="button"
-                  class="btn btn-outline-danger"
+                <form
+                  action="/logout"
+                  method="POST"
+                  style="display: inline"
                 >
-                  Sair
-                </button>
+                  <button type="submit" class="btn btn-outline-danger">
+                    Sair
+                  </button>
+                </form>
               </li>
             </ul>
           </div>
@@ -254,11 +256,7 @@
     >
       <div class="modal-dialog">
         <div class="modal-content">
-          <form
-            action="#"
-            method="POST"
-            enctype="multipart/form-data"
-          >
+          <form action="#" method="POST" enctype="multipart/form-data">
             <div class="modal-header">
               <h5 class="modal-title" id="editarModalLabel">Novo Objeto</h5>
               <button

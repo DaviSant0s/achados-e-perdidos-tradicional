@@ -56,13 +56,6 @@ const createObject = async (req, res) => {
 
     return res.redirect('/dashboard');
 
-    // return res.status(201).json({
-    //   object: object_res,
-    //   objectPictures: pictures,
-    // });
-
-    res
-
   } catch (error) {
     return res.status(400).json({
       error: '@objects/create',
@@ -183,45 +176,12 @@ const deleteObject = async (req, res) => {
     // Deleta o objeto em si
     await object.destroy();
 
-    // return res.status(200).json({
-    //   message: 'Objeto e imagens deletados com sucesso',
-    // });
-
     return res.redirect('/dashboard');
 
   } catch (error) {
     return res.status(400).json({
       error: '@objects/delete',
       message: error.message || 'Falha ao deletar objeto',
-    });
-  }
-};
-
-const getObjectById = async (req, res) => {
-  const { id } = req.params;
-  const createBy = req.session.userId;
-
-  try {
-    const object = await Object.findOne({
-      where: { id, createBy },
-      attributes: [
-        'id',
-        'name',
-        'description',
-        'location_of_loss',
-        'date_of_loss',
-        'category',
-      ],
-      include: [{ model: Picture, attributes: ['id', 'img'] }],
-    });
-
-    if (!object) throw new Error('Objeto não encontrado!');
-
-    return res.status(200).json({ object });
-  } catch (error) {
-    return res.status(400).json({
-      error: '@objects/getOne',
-      message: error.message || 'Falha ao buscar objeto',
     });
   }
 };
@@ -269,6 +229,5 @@ module.exports = {
   getObjects,
   updateObject,
   deleteObject,
-  getObjectById,
   getUserObjects,
 };

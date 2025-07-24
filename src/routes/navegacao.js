@@ -23,5 +23,16 @@ routes.get('/register', (req, res) => {
   res.render('register');
 });
 
+routes.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      console.log(err);
+      return
+    }
+
+    res.redirect('/login');
+  });
+});
+
 
 module.exports = routes;

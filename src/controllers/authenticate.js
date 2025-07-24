@@ -18,8 +18,15 @@ const signin = async (req, res) => {
     // Ao invés de criar token, você cria a sessão:
     req.session.userId = user.id;
 
+    // Salva a sessão ANTES de redirecionar
+    req.session.save((err) => {
+      if (err) {
+        console.error('Erro ao salvar a sessão:', err);
+        return res.redirect('/login');
+      }
 
-    res.redirect('/dashboard')
+      return res.redirect('/dashboard');
+    });
     
   } catch (error) {
     
@@ -60,16 +67,7 @@ const signup = async (req, res) => {
   }
 };
 
-const signout = async (req, res) => {
-  res.clearCookie('token');
-
-  res.status(200).json({
-    message: 'Signout successfully!',
-  });
-};
-
 module.exports = {
   signin,
   signup,
-  signout,
 };

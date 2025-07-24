@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const routes = Router();
 
-const { createObject, getObjects, updateObject, deleteObject, getObjectById, getUserObjects} = require('../controllers/object');
+const { createObject, getObjects, updateObject, deleteObject, getUserObjects} = require('../controllers/object');
 const { requiSignin } = require('../middlewares/verifyAuthentication');
 const { validateCreateObject, validateUpdateObject } = require('../middlewares/validation/object');
 
@@ -27,7 +27,6 @@ routes.post('/object/updateObject/:id',
 );
 
 routes.post('/object/deleteObject/:id', requiSignin, deleteObject);
-routes.get('/object/getObjectById/:id', requiSignin, getObjectById);
 routes.get('/object/getUserObjects/', requiSignin, getUserObjects);
 
 module.exports = routes;
